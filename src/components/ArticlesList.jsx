@@ -1,22 +1,36 @@
+import { Link } from "react-router-dom"
+
 export default function ArticlesList({ articles }) {
-       return (
+    let isArticleLengthOne
+    if (articles.length === 1) {
+        isArticleLengthOne = true
+    }
+    
+    return (
         <main className="article-container">
+            <h2>Articles: </h2>
             <ul>
             {
                 articles.map((article) => {
                     return (
                         <li key={article.article_id}>
+                            <img className="article-image" src={article.article_img_url} alt="article image"/>
                             <div>
-                                Image: {article.article_img_url}
-                            </div>
-                            <div>
+                                <Link to={`/article/${article.article_id}`}>
                                 Title: {article.title}
+                                </Link>
                             </div>
                             <div>
                                 Author: {article.author}
                             </div>
                             <div>
                                 Topic: {article.topic}
+                            </div>
+                            <div>
+                                Id: {article.article_id}
+                            </div>
+                            <div>
+                                {isArticleLengthOne ? <p>{ article.body }</p>: null}
                             </div>
                             <div>
                                 Votes: {article.votes}

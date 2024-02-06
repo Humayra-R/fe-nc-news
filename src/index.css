@@ -28,3 +28,9 @@
   display: flex;
   justify-content: center;
 }
+
+.article-image {
+  display: flex;
+  width: 30%;
+  height: auto;
+}

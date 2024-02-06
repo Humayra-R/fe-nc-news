@@ -5,9 +5,8 @@ export default function ApiRequest(endpoint) {
         baseURL: 'https://nc-news-xrc9.onrender.com/api'
     })
     return articlesApi.get(endpoint)
-    .then((articlesData) => {
-        const { articles } = articlesData.data
-        return articles
+    .then(({ data }) => {
+        return data
     })
 }
 

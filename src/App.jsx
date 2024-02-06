@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home loggedUser={ loggedUser }/>} />
         <Route path='/articles' element={<ArticlesData />} />
-        <Route path='/article/:article-id' element={<ArticlePage loggedUser={ loggedUser } />} />
+        <Route path='/article/:article_id' element={<ArticlePage loggedUser={ loggedUser } />} />
       </Routes>
       <Footer />
     </div>
