@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom"
 
 export default function ArticlesList({ articles }) {
-    let isArticleLengthOne
-    if (articles.length === 1) {
-        isArticleLengthOne = true
-    }
-    
     return (
         <main className="article-container">
             <h2>Articles: </h2>
@@ -13,7 +8,7 @@ export default function ArticlesList({ articles }) {
             {
                 articles.map((article) => {
                     return (
-                        <li key={article.article_id}>
+                        <li className='article' key={article.article_id}>
                             <img className="article-image" src={article.article_img_url} alt="article image"/>
                             <div>
                                 <Link to={`/article/${article.article_id}`}>
@@ -28,9 +23,6 @@ export default function ArticlesList({ articles }) {
                             </div>
                             <div>
                                 Id: {article.article_id}
-                            </div>
-                            <div>
-                                {isArticleLengthOne ? <p>{ article.body }</p>: null}
                             </div>
                             <div>
                                 Votes: {article.votes}

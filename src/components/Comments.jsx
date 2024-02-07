@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import ApiRequest from "./ApiRequest"
+import CommentsApiReq from "./CommentsApiReq"
 import CommentsList from "./CommentsList"
 
 
@@ -10,7 +10,7 @@ export default function Comments({ article_id }) {
 
     useEffect(() => {
         setIsLoading(true)
-        ApiRequest(`/articles/${article_id}/comments`)
+        CommentsApiReq(article_id)
         .then((data) => {
             const { comments } = data
             setComments(comments)
@@ -25,7 +25,7 @@ export default function Comments({ article_id }) {
 
     if (isLoading) return <p className="intermediary"> ... loading comments </p>
 
-    if (errMsg) return <p className="intermediary"> {errMsg} </p>
+    if (errMsg) return <p className="intermediary"> ERROR: {errMsg} </p>
 
     return (
         <div>
