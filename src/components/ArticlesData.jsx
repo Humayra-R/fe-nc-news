@@ -3,9 +3,9 @@ import ArticlesApiRequest from "./ArticlesApiRequest"
 import ArticlesList from "./ArticlesList"
 
 export default function ArticlesData() {
-    const [articles, setArticles] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [errMsg, setErrMsg] = useState(null)
+    const [ articles, setArticles ] = useState([])
+    const [ isLoading, setIsLoading ] = useState(false)
+    const [ errMsg, setErrMsg ] = useState(null)
 
     useEffect(() => {
         setIsLoading(true)
@@ -23,7 +23,7 @@ export default function ArticlesData() {
     }, [])
 
     if (isLoading) {
-        return <p className="intermediary"> ... loading articles  </p>
+        return <p className="intermediary"> ...loading articles  </p>
     }
 
     if (errMsg) {
@@ -31,6 +31,6 @@ export default function ArticlesData() {
     }
     
     return (
-        <ArticlesList articles={ articles } />
+        <ArticlesList articles={articles} />
     )
 }
