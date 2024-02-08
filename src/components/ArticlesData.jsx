@@ -23,7 +23,7 @@ export default function ArticlesData() {
     }, [])
 
     if (isLoading) {
-        return <p className="intermediary"> ... loading articles  </p>
+        return <p className="intermediary"> ...loading articles  </p>
     }
 
     if (errMsg) {
