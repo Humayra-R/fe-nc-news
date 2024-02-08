@@ -3,9 +3,9 @@ import ArticlesApiRequest from "./ArticlesApiRequest";
 import ArticleList from "./ArticleList";
 
 export default function Article({ article_id }) {
-    const [article, setArticle] = useState({})
-    const [isLoading, setIsLoading] = useState(false)
-    const [errMsg, setErrMsg] = useState(null)
+    const [ article, setArticle ] = useState({})
+    const [ isLoading, setIsLoading ] = useState(false)
+    const [ errMsg, setErrMsg ] = useState(null)
 
 useEffect(() => {
     setIsLoading(true)
@@ -14,8 +14,8 @@ useEffect(() => {
         const [ data ] = article
         setIsLoading(false)
         setArticle(data)
-        })
-        .catch((err) => {
+    })
+    .catch((err) => {
             setIsLoading(false)
             const { msg } = err.response.data
             setErrMsg(msg)
@@ -27,6 +27,8 @@ useEffect(() => {
     if (errMsg) return <p> ERROR: {errMsg} </p>
 
     return (
-    <ArticleList article={ article } />
+    <div>
+        <ArticleList article={article} />
+    </div>
     )
 }
