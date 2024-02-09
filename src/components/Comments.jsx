@@ -11,7 +11,9 @@ export default function Comments({ article_id, username }) {
 
     const addComment = (comment) => {
         setComments((currentComments) => {
-        return [comment, ...currentComments ]
+        return (
+            [comment, ...currentComments ]
+            )
         })
     }
 
@@ -44,8 +46,8 @@ export default function Comments({ article_id, username }) {
 
     return (
         <div>
-            <PostComment article_id={article_id} username={username} addComment={addComment} removeComment={removeComment} />
-            <CommentsList comments={comments} setComments={setComments} />
+            <PostComment article_id={article_id} username={username} addComment={addComment} removeComment={removeComment} setComments={setComments} />
+            <CommentsList comments={comments} username={username} article_id={article_id} setComments={setComments} />
         </div>
     ) 
 }

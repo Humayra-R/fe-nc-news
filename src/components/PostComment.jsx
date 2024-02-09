@@ -1,10 +1,12 @@
 import { useState } from "react"
 import axios from 'axios'
+import CommentsApiReq from "./CommentsApiReq"
 
-export default function PostComment({ article_id, username, addComment, removeComment }) {
+export default function PostComment({ article_id, username, addComment, removeComment, setComments }) {
     const [ input, setInput ] = useState('')
-    const [isPosting, setIsPosting] = useState(false)
-    const [errMsg, setErrMsg] = useState(null)
+    const [ isPosting, setIsPosting ] = useState(false)
+    const [ loadingComments, setLoadingComments ] = useState(false)
+    const [ errMsg, setErrMsg ] = useState(null)
 
     const handleChange = (event) => {
         setInput(event.target.value)
@@ -23,11 +25,25 @@ export default function PostComment({ article_id, username, addComment, removeCo
             votes: 0
         }
         addComment(newComment)
-
+        setInput('')
         axios.post(`https://nc-news-xrc9.onrender.com/api/articles/${article_id}/comments`, {user_name: username, body: input})
         .then(() => {
             setIsPosting(false)
             setErrMsg(null)
+
+            setLoadingComments(true)
+            CommentsApiReq(article_id)
+            .then((data) => {
+                setLoadingComments(false)
+                const { comments } = data
+                setComments(comments)
+            })
+            .catch((err) => {
+                setLoadingComments(false)
+                const { msg } = err.response.data
+                setErrMsg(msg)
+            })
+            
         })
         .catch((err) => {
             setIsPosting(false)
@@ -46,6 +62,7 @@ export default function PostComment({ article_id, username, addComment, removeCo
             </form>
             {isPosting ? <p> posting... </p> : null}
             {errMsg ? <p> ERROR: {errMsg} </p> : null}
+            {loadingComments ? <p> loading comments </p> : null}
         </section>
     )
 }
