@@ -22,6 +22,9 @@ export default function ArticlesList({ articles }) {
                                 Topic: {article.topic}
                             </div>
                             <div>
+                                Created At: {article.created_at}
+                            </div>
+                            <div>
                                 Id: {article.article_id}
                             </div>
                             <div>

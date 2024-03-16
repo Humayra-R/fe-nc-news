@@ -30,6 +30,7 @@ export default function ArticleList({ article }) {
             <p> Author: {article.author} </p>
             <p> Topic: {article.topic} </p>
             <p> {article.body} </p>
+            <Date> {article.created_at} </Date>
             <p> Article ID: {article.article_id} </p>
             <button onClick={() => handleClick(-1)} aria-label='button for subtracting a vote from the article'> - </button> 
             Votes: { votes }
