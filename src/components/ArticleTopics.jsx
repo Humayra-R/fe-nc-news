@@ -12,8 +12,6 @@ export default function ArticleTopics({ setArticles }) {
     const topicQuery = searchParams.get('topic')
     const sortByQuery = searchParams.get('sort_by')
 
-    console.log(topicQuery, 'articlepage')
-
     useEffect(() => {
         axios.get('https://nc-news-xrc9.onrender.com/api/topics')
         .then(({ data }) => {

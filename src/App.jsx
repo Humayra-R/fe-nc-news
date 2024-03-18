@@ -8,7 +8,7 @@ import Footer from './components/Footer'
 
 
 function App() {
-  const loggedUser = { username: 'jessjelly'}
+  const loggedUser = { username: 'tickle122'}
 
   return (
     <div>

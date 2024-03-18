@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import ArticlesApiRequest from "./ArticlesApiRequest"
 
-export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, setUserArticles }) {
+export default function UserArticlesSort({ selectedTopicHome, loggedUser, setUserArticles }) {
     const [ searchParams, setSearchParams ] = useSearchParams()
     const [ appliedQueryHome, setAppliedQueryHome ] = useState('')
     
@@ -15,7 +15,12 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
-                const articlesAsc = articles.reverse()
+                const loggedUserArticles = articles.filter((article) => {
+                    if (article.author === loggedUser.username) {
+                        return article
+                    }
+                })
+                const articlesAsc = loggedUserArticles.reverse()
                 setUserArticles(articlesAsc)
             })
         }
@@ -24,6 +29,12 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
+                const loggedUserArticles = articles.filter((article) => {
+                    if (article.author === loggedUser.username) {
+                        return article
+                    }
+                })
+                
                 const sortArt = (a, b) => {
                     const articleA = Number(a.comment_count)
                     const articleB = Number(b.comment_count)
@@ -37,7 +48,7 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
                     }
                     return comparison * -1
                 }
-                const sortedArticles = articles.sort(sortArt)
+                const sortedArticles = loggedUserArticles.sort(sortArt)
                 setUserArticles(sortedArticles)
             })
         }
@@ -46,6 +57,11 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
+                const loggedUserArticles = articles.filter((article) => {
+                    if (article.author === loggedUser.username) {
+                        return article
+                    }
+                })
                 const sortArt = (a, b) => {
                     const articleA = Number(a.comment_count)
                     const articleB = Number(b.comment_count)
@@ -59,7 +75,7 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
                     }
                     return comparison
                 }
-                const sortedArticles = articles.sort(sortArt)
+                const sortedArticles = loggedUserArticles.sort(sortArt)
                 setUserArticles(sortedArticles)
             })
         }
@@ -68,6 +84,11 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
+                const loggedUserArticles = articles.filter((article) => {
+                    if (article.author === loggedUser.username) {
+                        return article
+                    }
+                })
                 const sortArt = (a, b) => {
                     const articleA = Number(a.votes)
                     const articleB = Number(b.votes)
@@ -81,7 +102,7 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
                     }
                     return comparison * -1
                 }
-                const sortedArticles = articles.sort(sortArt)
+                const sortedArticles = loggedUserArticles.sort(sortArt)
                 setUserArticles(sortedArticles)
             })
         }
@@ -90,6 +111,11 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
+                const loggedUserArticles = articles.filter((article) => {
+                    if (article.author === loggedUser.username) {
+                        return article
+                    }
+                })
                 const sortArt = (a, b) => {
                     const articleA = Number(a.votes)
                     const articleB = Number(b.votes)
@@ -103,7 +129,7 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
                     }
                     return comparison
                 }
-                const sortedArticles = articles.sort(sortArt)
+                const sortedArticles = loggedUserArticles.sort(sortArt)
                 setUserArticles(sortedArticles)
             })
         }
@@ -132,7 +158,12 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
             if (!topicQuery) {
                 ArticlesApiRequest()
                 .then(({ articles }) => {
-                setUserArticles(articles)
+                    const loggedUserArticles = articles.filter((article) => {
+                        if (article.author === loggedUser.username) {
+                            return article
+                        }
+                    })
+                setUserArticles(loggedUserArticles)
             })
             }
         }
@@ -142,7 +173,12 @@ export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, 
         setAppliedQueryHome('')
         ArticlesApiRequest()
         .then(({ articles }) => {
-        setUserArticles(articles)
+            const loggedUserArticles = articles.filter((article) => {
+                if (article.author === loggedUser.username) {
+                    return article
+                }
+            })
+        setUserArticles(loggedUserArticles)
         })
     }
 

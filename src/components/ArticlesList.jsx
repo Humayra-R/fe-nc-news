@@ -2,12 +2,12 @@ import { Link } from "react-router-dom"
 
 export default function ArticlesList({ articles }) {
     return (
-        <main className="article-container">
+        <main className="articles-container">
             <ul>
             {
                 articles.map((article) => {
                     return (
-                        <li className='article' key={article.article_id}>
+                        <div className='article' key={article.article_id}>
                             <img className="article-image" src={article.article_img_url} alt="article image"/>
                             <div>
                                 <Link to={`/article/${article.article_id}`}>
@@ -24,15 +24,12 @@ export default function ArticlesList({ articles }) {
                                 Created At: {article.created_at}
                             </div>
                             <div>
-                                Id: {article.article_id}
+                                Likes: {article.votes}
                             </div>
                             <div>
-                                Votes: {article.votes}
+                                Comments: {article.comment_count}
                             </div>
-                            <div>
-                                Comment Count: {article.comment_count}
-                            </div>
-                        </li>
+                        </div>
                     )
                 })
             }

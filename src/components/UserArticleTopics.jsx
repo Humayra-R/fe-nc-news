@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import axios from 'axios'
 import { useSearchParams } from 'react-router-dom'
 import ArticlesApiRequest from "./ArticlesApiRequest"
-import ArticlesList from "./ArticlesList"
-// import ArticlesSort from './ArticlesSort'
+import UserArticlesSort from "./UserArticlesSort"
+
 
 
 export default function UserArticleTopics({ setUserArticles, loggedUser }) {
@@ -39,78 +39,78 @@ export default function UserArticleTopics({ setUserArticles, loggedUser }) {
                         return article
                     }
                 })
-                // if (sortByQuery === 'date') {
-                //     const articlesAsc = loggedUserArticles.reverse()
-                //     setUserArticles(articlesAsc)
-                // }
-                // else if (sortByQuery === 'count-asc') {
-                //     const sortArt = (a, b) => {
-                //     const articleA = Number(a.comment_count)
-                //     const articleB = Number(b.comment_count)
+                if (sortByQuery === 'date') {
+                    const articlesAsc = loggedUserArticles.reverse()
+                    setUserArticles(articlesAsc)
+                }
+                else if (sortByQuery === 'count-asc') {
+                    const sortArt = (a, b) => {
+                    const articleA = Number(a.comment_count)
+                    const articleB = Number(b.comment_count)
     
-                //         let comparison = 0
-                //         if (articleA > articleB) {
-                //             comparison = 1
-                //         }
-                //         else if (articleA < articleB) {
-                //             comparison = -1
-                //         }
-                //         return comparison * -1
-                //     }
-                //     const sortedArticles = articles.sort(sortArt)
-                //     setUserArticles(sortedArticles)
-                // }
-                // else if (sortByQuery === 'count-desc') {
-                //     const sortArt = (a, b) => {
-                //     const articleA = Number(a.comment_count)
-                //     const articleB = Number(b.comment_count)
+                        let comparison = 0
+                        if (articleA > articleB) {
+                            comparison = 1
+                        }
+                        else if (articleA < articleB) {
+                            comparison = -1
+                        }
+                        return comparison * -1
+                    }
+                    const sortedArticles = loggedUserArticles.sort(sortArt)
+                    setUserArticles(sortedArticles)
+                }
+                else if (sortByQuery === 'count-desc') {
+                    const sortArt = (a, b) => {
+                    const articleA = Number(a.comment_count)
+                    const articleB = Number(b.comment_count)
     
-                //         let comparison = 0
-                //         if (articleA > articleB) {
-                //             comparison = 1
-                //         }
-                //         else if (articleA < articleB) {
-                //             comparison = -1
-                //         }
-                //         return comparison
-                //     }
-                //     const sortedArticles = articles.sort(sortArt)
-                //     setUserArticles(sortedArticles)
-                // }
-                // else if (sortByQuery === 'votes-asc') {
-                //     const sortArt = (a, b) => {
-                //     const articleA = Number(a.votes)
-                //     const articleB = Number(b.votes)
+                        let comparison = 0
+                        if (articleA > articleB) {
+                            comparison = 1
+                        }
+                        else if (articleA < articleB) {
+                            comparison = -1
+                        }
+                        return comparison
+                    }
+                    const sortedArticles = loggedUserArticles.sort(sortArt)
+                    setUserArticles(sortedArticles)
+                }
+                else if (sortByQuery === 'votes-asc') {
+                    const sortArt = (a, b) => {
+                    const articleA = Number(a.votes)
+                    const articleB = Number(b.votes)
     
-                //         let comparison = 0
-                //         if (articleA > articleB) {
-                //             comparison = 1
-                //         }
-                //         else if (articleA < articleB) {
-                //             comparison = -1
-                //         }
-                //         return comparison * -1
-                //     }
-                //     const sortedArticles = articles.sort(sortArt)
-                //     setUserArticles(sortedArticles)
-                // }
-                // else if (sortByQuery === 'votes-desc') {
-                //     const sortArt = (a, b) => {
-                //     const articleA = Number(a.votes)
-                //     const articleB = Number(b.votes)
+                        let comparison = 0
+                        if (articleA > articleB) {
+                            comparison = 1
+                        }
+                        else if (articleA < articleB) {
+                            comparison = -1
+                        }
+                        return comparison * -1
+                    }
+                    const sortedArticles = loggedUserArticles.sort(sortArt)
+                    setUserArticles(sortedArticles)
+                }
+                else if (sortByQuery === 'votes-desc') {
+                    const sortArt = (a, b) => {
+                    const articleA = Number(a.votes)
+                    const articleB = Number(b.votes)
     
-                //         let comparison = 0
-                //         if (articleA > articleB) {
-                //             comparison = 1
-                //         }
-                //         else if (articleA < articleB) {
-                //             comparison = -1
-                //         }
-                //         return comparison
-                //     }
-                //     const sortedArticles = articles.sort(sortArt)
-                //     setUserArticles(sortedArticles)
-                // }
+                        let comparison = 0
+                        if (articleA > articleB) {
+                            comparison = 1
+                        }
+                        else if (articleA < articleB) {
+                            comparison = -1
+                        }
+                        return comparison
+                    }
+                    const sortedArticles = loggedUserArticles.sort(sortArt)
+                    setUserArticles(sortedArticles)
+                }
                 setUserArticles(loggedUserArticles)
             })
             .catch((err) => {
@@ -190,7 +190,7 @@ export default function UserArticleTopics({ setUserArticles, loggedUser }) {
                     </ul>
                 </form>
             </div>
-            {/* <sortUserArticles selectedTopicHome={selectedTopicHome} setSelectedTopicHome={setSelectedTopicHome} setUserArticles={setUserArticles}  /> */}
+            <UserArticlesSort selectedTopicHome={selectedTopicHome} setSelectedTopicHome={setSelectedTopicHome} setUserArticles={setUserArticles} loggedUser={loggedUser} />
         </div>
     )
 }
