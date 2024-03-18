@@ -2,25 +2,25 @@ import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import ArticlesApiRequest from "./ArticlesApiRequest"
 
-export default function ArticlesSort({ selectedTopic, setSelectedTopic, setArticles }) {
+export default function ArticlesSort({ selectedTopicHome, setSelectedTopicHome, setUserArticles }) {
     const [ searchParams, setSearchParams ] = useSearchParams()
-    const [ appliedQuery, setAppliedQuery ] = useState('')
+    const [ appliedQueryHome, setAppliedQueryHome ] = useState('')
     
     const topicQuery = searchParams.get('topic')
     const sortByQuery = searchParams.get('sort_by') 
 
     useEffect(() => {
-        if (sortByQuery === 'date' && !selectedTopic) {
-            setAppliedQuery(sortByQuery)
+        if (sortByQuery === 'date' && !selectedTopicHome) {
+            setAppliedQueryHome(sortByQuery)
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
                 const articlesAsc = articles.reverse()
-                setArticles(articlesAsc)
+                setUserArticles(articlesAsc)
             })
         }
-        else if (sortByQuery === 'count-asc' && !selectedTopic) {
-            setAppliedQuery(sortByQuery)
+        else if (sortByQuery === 'count-asc' && !selectedTopicHome) {
+            setAppliedQueryHome(sortByQuery)
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
@@ -38,11 +38,11 @@ export default function ArticlesSort({ selectedTopic, setSelectedTopic, setArtic
                     return comparison * -1
                 }
                 const sortedArticles = articles.sort(sortArt)
-                setArticles(sortedArticles)
+                setUserArticles(sortedArticles)
             })
         }
-        else if (sortByQuery === 'count-desc' && !selectedTopic) {
-            setAppliedQuery(sortByQuery)
+        else if (sortByQuery === 'count-desc' && !selectedTopicHome) {
+            setAppliedQueryHome(sortByQuery)
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
@@ -60,11 +60,11 @@ export default function ArticlesSort({ selectedTopic, setSelectedTopic, setArtic
                     return comparison
                 }
                 const sortedArticles = articles.sort(sortArt)
-                setArticles(sortedArticles)
+                setUserArticles(sortedArticles)
             })
         }
-        else if (sortByQuery === 'votes-asc' && !selectedTopic) {
-            setAppliedQuery(sortByQuery)
+        else if (sortByQuery === 'votes-asc' && !selectedTopicHome) {
+            setAppliedQueryHome(sortByQuery)
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
@@ -82,11 +82,11 @@ export default function ArticlesSort({ selectedTopic, setSelectedTopic, setArtic
                     return comparison * -1
                 }
                 const sortedArticles = articles.sort(sortArt)
-                setArticles(sortedArticles)
+                setUserArticles(sortedArticles)
             })
         }
-        else if (sortByQuery === 'votes-desc' && !selectedTopic) {
-            setAppliedQuery(sortByQuery)
+        else if (sortByQuery === 'votes-desc' && !selectedTopicHome) {
+            setAppliedQueryHome(sortByQuery)
             addSortByParam(sortByQuery)
             ArticlesApiRequest()
             .then(({ articles }) => {
@@ -104,10 +104,10 @@ export default function ArticlesSort({ selectedTopic, setSelectedTopic, setArtic
                     return comparison
                 }
                 const sortedArticles = articles.sort(sortArt)
-                setArticles(sortedArticles)
+                setUserArticles(sortedArticles)
             })
         }
-    }, [sortByQuery, selectedTopic])
+    }, [sortByQuery, selectedTopicHome])
 
     const addSortByParam = (sortBy) => {
         const newParams = new URLSearchParams(searchParams)
@@ -123,26 +123,26 @@ export default function ArticlesSort({ selectedTopic, setSelectedTopic, setArtic
 
     const handleChange = (event) => {
         if (event.target.checked) {
-            setAppliedQuery(event.target.name)
+            setAppliedQueryHome(event.target.name)
             addSortByParam(event.target.name)
         }
         else if (!event.target.checked) {
-            setAppliedQuery('')
+            setAppliedQueryHome('')
             deleteSortByParam(event.target.name)
             if (!topicQuery) {
                 ArticlesApiRequest()
                 .then(({ articles }) => {
-                setArticles(articles)
+                setUserArticles(articles)
             })
             }
         }
     }
 
-    if (!sortByQuery && appliedQuery) {
-        setAppliedQuery('')
+    if (!sortByQuery && appliedQueryHome) {
+        setAppliedQueryHome('')
         ArticlesApiRequest()
         .then(({ articles }) => {
-        setArticles(articles)
+        setUserArticles(articles)
         })
     }
 
@@ -152,25 +152,25 @@ export default function ArticlesSort({ selectedTopic, setSelectedTopic, setArtic
             <ul>
                 <h3> Sort Articles </h3>
                 <h4>  Date: </h4>
-                <input type="checkbox" name="date" id="date" checked={appliedQuery === 'date' ? true : false} disabled={appliedQuery && appliedQuery !== 'date' ? true : false} onChange={handleChange} />
+                <input type="checkbox" name="date" id="date" checked={appliedQueryHome === 'date' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'date' ? true : false} onChange={handleChange} />
                 <label htmlFor="date"> Oldest to Newest </label>
                 <h4> Likes: </h4>
                 <div>
-                    <input type="checkbox" name="votes-asc" id="votes-asc"  checked={appliedQuery === 'votes-asc' ? true : false} disabled={appliedQuery && appliedQuery !== 'votes-asc' ? true : false} onChange={handleChange} />
+                    <input type="checkbox" name="votes-asc" id="votes-asc"  checked={appliedQueryHome === 'votes-asc' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'votes-asc' ? true : false} onChange={handleChange} />
                     <label htmlFor="votes-asc" > Highest to Lowest </label>
                 </div>
                 <div>
-                    <input type="checkbox" name="votes-desc" id="votes-desc" checked={appliedQuery === 'votes-desc' ? true : false} disabled={appliedQuery && appliedQuery !== 'votes-desc' ? true : false} onChange={handleChange} />
+                    <input type="checkbox" name="votes-desc" id="votes-desc" checked={appliedQueryHome === 'votes-desc' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'votes-desc' ? true : false} onChange={handleChange} />
                     <label htmlFor="votes-desc" > Lowest to Highest </label>
                 </div>
                 <h4> Comments: </h4>
                 <div>
-                    <input type="checkbox" name="count-asc" id="count-asc"  checked={appliedQuery === 'count-asc' ? true : false} disabled={appliedQuery && appliedQuery !== 'count-asc' ? true : false} onChange={handleChange} />
+                    <input type="checkbox" name="count-asc" id="count-asc"  checked={appliedQueryHome === 'count-asc' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'count-asc' ? true : false} onChange={handleChange} />
                     <label htmlFor="count-asc" > Highest to Lowest </label>
                 </div>
                 
                 <div>
-                    <input type="checkbox" name="count-desc" id="count-desc" checked={appliedQuery === 'count-desc' ? true : false} disabled={appliedQuery && appliedQuery !== 'count-desc' ? true : false} onChange={handleChange} />
+                    <input type="checkbox" name="count-desc" id="count-desc" checked={appliedQueryHome === 'count-desc' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'count-desc' ? true : false} onChange={handleChange} />
                     <label htmlFor="count-desc" > Lowest to Highest </label>
                 </div>
              

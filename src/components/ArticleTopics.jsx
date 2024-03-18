@@ -3,7 +3,6 @@ import axios from 'axios'
 import { Link, useSearchParams } from 'react-router-dom'
 import ArticlesApiRequest from "./ArticlesApiRequest"
 import ArticlesSort from './ArticlesSort'
-import ArticlesData from "./ArticlesData"
 
 export default function ArticleTopics({ setArticles }) {
     const [ searchParams, setSearchParams ] = useSearchParams()
@@ -12,6 +11,8 @@ export default function ArticleTopics({ setArticles }) {
     
     const topicQuery = searchParams.get('topic')
     const sortByQuery = searchParams.get('sort_by')
+
+    console.log(topicQuery, 'articlepage')
 
     useEffect(() => {
         axios.get('https://nc-news-xrc9.onrender.com/api/topics')
