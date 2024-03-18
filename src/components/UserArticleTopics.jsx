@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import ArticlesApiRequest from "./ArticlesApiRequest"
-import ArticlesSort from './ArticlesSort'
+import UserArticlesSort from "./UserArticlesSort"
 
-export default function ArticleTopics({ setArticles }) {
+
+
+export default function UserArticleTopics({ setUserArticles, loggedUser }) {
     const [ searchParams, setSearchParams ] = useSearchParams()
-    const [ topics, setTopics ] = useState([])
-    const [ selectedTopic, setSelectedTopic ] = useState('')
+    const [ topicsHome, setTopicsHome ] = useState([])
+    const [ selectedTopicHome, setSelectedTopicHome ] = useState('')
     
     const topicQuery = searchParams.get('topic')
     const sortByQuery = searchParams.get('sort_by')
@@ -15,7 +17,7 @@ export default function ArticleTopics({ setArticles }) {
     useEffect(() => {
         axios.get('https://nc-news-xrc9.onrender.com/api/topics')
         .then(({ data }) => {
-            setTopics(data)
+            setTopicsHome(data)
         })
         .catch((err) => {
             console.log(err)
@@ -24,17 +26,22 @@ export default function ArticleTopics({ setArticles }) {
 
     useEffect(() => {
         if (topicQuery) {
-            setSelectedTopic(topicQuery)
+            setSelectedTopicHome(topicQuery)
             axios.get(`https://nc-news-xrc9.onrender.com/api/articles`, {
                 params: {
-                    topic: selectedTopic || topicQuery
+                    topic: selectedTopicHome || topicQuery
                 }
             })
             .then(({ data }) => {
                 const { articles } = data
+                const loggedUserArticles = articles.filter((article) => {
+                    if (article.author === loggedUser.username) {
+                        return article
+                    }
+                })
                 if (sortByQuery === 'date') {
-                    const articlesAsc = articles.reverse()
-                    setArticles(articlesAsc)
+                    const articlesAsc = loggedUserArticles.reverse()
+                    setUserArticles(articlesAsc)
                 }
                 else if (sortByQuery === 'count-asc') {
                     const sortArt = (a, b) => {
@@ -50,8 +57,8 @@ export default function ArticleTopics({ setArticles }) {
                         }
                         return comparison * -1
                     }
-                    const sortedArticles = articles.sort(sortArt)
-                    setArticles(sortedArticles)
+                    const sortedArticles = loggedUserArticles.sort(sortArt)
+                    setUserArticles(sortedArticles)
                 }
                 else if (sortByQuery === 'count-desc') {
                     const sortArt = (a, b) => {
@@ -67,8 +74,8 @@ export default function ArticleTopics({ setArticles }) {
                         }
                         return comparison
                     }
-                    const sortedArticles = articles.sort(sortArt)
-                    setArticles(sortedArticles)
+                    const sortedArticles = loggedUserArticles.sort(sortArt)
+                    setUserArticles(sortedArticles)
                 }
                 else if (sortByQuery === 'votes-asc') {
                     const sortArt = (a, b) => {
@@ -84,8 +91,8 @@ export default function ArticleTopics({ setArticles }) {
                         }
                         return comparison * -1
                     }
-                    const sortedArticles = articles.sort(sortArt)
-                    setArticles(sortedArticles)
+                    const sortedArticles = loggedUserArticles.sort(sortArt)
+                    setUserArticles(sortedArticles)
                 }
                 else if (sortByQuery === 'votes-desc') {
                     const sortArt = (a, b) => {
@@ -101,16 +108,16 @@ export default function ArticleTopics({ setArticles }) {
                         }
                         return comparison
                     }
-                    const sortedArticles = articles.sort(sortArt)
-                    setArticles(sortedArticles)
+                    const sortedArticles = loggedUserArticles.sort(sortArt)
+                    setUserArticles(sortedArticles)
                 }
-                setArticles(articles)
+                setUserArticles(loggedUserArticles)
             })
             .catch((err) => {
                 console.log(err.response.data.msg)
             })
         }
-    }, [topicQuery, selectedTopic, sortByQuery])
+    }, [topicQuery, selectedTopicHome, sortByQuery])
     
     const addTopicParam = (topicName) => {
         const newParams = new URLSearchParams(searchParams)
@@ -126,16 +133,21 @@ export default function ArticleTopics({ setArticles }) {
 
     const handleChange = (event) => {
         if (event.target.checked) {
-            setSelectedTopic(event.target.name)
+            setSelectedTopicHome(event.target.name)
             addTopicParam(event.target.name)
         }
         else if (!event.target.checked) {
-            setSelectedTopic('')
+            setSelectedTopicHome('')
             deleteTopicParam(event.target.name)
             if (sortByQuery !== 'date') {
                 ArticlesApiRequest()
                 .then(({ articles }) => {
-                    setArticles(articles)
+                    const loggedUserArticles = articles.filter((article) => {
+                        if (article.author === loggedUser.username) {
+                            return article
+                        }
+                    })
+                    setUserArticles(loggedUserArticles)
                 })
                 .catch((err) => {
                     console.log(err)
@@ -144,11 +156,19 @@ export default function ArticleTopics({ setArticles }) {
         }
     }
 
-    if (!topicQuery && selectedTopic) {
-        setSelectedTopic('')
+    if (!topicQuery && selectedTopicHome) {
+        setSelectedTopicHome('')
         ArticlesApiRequest()
         .then(({ articles }) => {
-            setArticles(articles)
+            const loggedUserArticles = articles.filter((article) => {
+                if (article.author === loggedUser.username) {
+                    return article
+                }
+            })
+            setUserArticles(loggedUserArticles)
+        })
+        .catch((err) => {
+            console.log(err)
         })
     }
 
@@ -159,10 +179,10 @@ export default function ArticleTopics({ setArticles }) {
                     <ul>
                         <h3> Filter Articles </h3>
                         <h4> Topic: </h4>
-                        {topics.map((topic, index) => {
+                        {topicsHome.map((topic, index) => {
                             return (
                             <div key={`${topic.slug}${index}`}>
-                            <input type="checkbox"  name={topic.slug} onChange={handleChange} id={`${topic.slug}${index}`} checked={selectedTopic === topic.slug ? true : false} disabled={selectedTopic && selectedTopic !== topic.slug ? true : false} />
+                            <input type="checkbox"  name={topic.slug} onChange={handleChange} id={`${topic.slug}${index}`} checked={selectedTopicHome === topic.slug ? true : false} disabled={selectedTopicHome && selectedTopicHome !== topic.slug ? true : false} />
                             <label htmlFor="filter-topic"> {topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)} </label> 
                             </div>
                             )
@@ -170,7 +190,7 @@ export default function ArticleTopics({ setArticles }) {
                     </ul>
                 </form>
             </div>
-            <ArticlesSort selectedTopic={selectedTopic} setSelectedTopic={setSelectedTopic} setArticles={setArticles}  />
+            <UserArticlesSort selectedTopicHome={selectedTopicHome} setSelectedTopicHome={setSelectedTopicHome} setUserArticles={setUserArticles} loggedUser={loggedUser} />
         </div>
     )
 }

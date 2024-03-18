@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import ArticlesApiRequest from "./ArticlesApiRequest"
+import ArticleTopics from "./ArticleTopics"
 import ArticlesList from "./ArticlesList"
 
 export default function ArticlesData() {
@@ -23,7 +24,7 @@ export default function ArticlesData() {
     }, [])
 
     if (isLoading) {
-        return <p className="intermediary"> ...loading articles  </p>
+        return <p className="intermediary"> Loading articles... </p>
     }
 
     if (errMsg) {
@@ -31,6 +32,9 @@ export default function ArticlesData() {
     }
     
     return (
-        <ArticlesList articles={articles} />
+        <div>
+            <ArticleTopics setArticles={setArticles} />
+            <ArticlesList articles={articles} />
+        </div>
     )
 }
