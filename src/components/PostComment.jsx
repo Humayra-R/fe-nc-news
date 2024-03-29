@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from 'axios'
-import CommentsApiReq from "./CommentsApiReq"
+import CommentsApiReq from "./api-request/CommentsApiReq"
 
 export default function PostComment({ article_id, username, addComment, removeComment, setComments }) {
     const [ input, setInput ] = useState('')

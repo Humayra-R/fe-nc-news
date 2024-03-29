@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from 'axios'
-import CommentsApiReq from "./CommentsApiReq"
+import CommentsApiReq from "./api-request/CommentsApiReq"
 
 export default function CommentsList({ comments, username, article_id, setComments }) {
     const [ isDeleting, setIsDeleting ] = useState(false)

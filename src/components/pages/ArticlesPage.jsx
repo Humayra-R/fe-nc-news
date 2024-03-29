@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import ArticlesApiRequest from "./ArticlesApiRequest"
-import ArticleTopics from "./ArticleTopics"
-import ArticlesList from "./ArticlesList"
+import ArticlesApiRequest from "../api-request/ArticlesApiRequest"
+import ArticleTopics from "../ArticleTopics"
+import ArticlesList from "../ArticlesList"
 
-export default function ArticlesData() {
+export default function ArticlesPage() {
     const [ articles, setArticles ] = useState([])
     const [ isLoading, setIsLoading ] = useState(false)
     const [ errMsg, setErrMsg ] = useState(null)

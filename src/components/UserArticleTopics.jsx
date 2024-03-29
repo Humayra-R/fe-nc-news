@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
 import { useSearchParams } from 'react-router-dom'
-import ArticlesApiRequest from "./ArticlesApiRequest"
+import ArticlesApiRequest from "./api-request/ArticlesApiRequest"
 import UserArticlesSort from "./UserArticlesSort"
 
 
@@ -10,22 +10,28 @@ export default function UserArticleTopics({ setUserArticles, loggedUser }) {
     const [ searchParams, setSearchParams ] = useSearchParams()
     const [ topicsHome, setTopicsHome ] = useState([])
     const [ selectedTopicHome, setSelectedTopicHome ] = useState('')
+    const [ isLoadingTopicOptions, setIsLoadingTopicOptions ] = useState(false)
+    const [ isLoadingArticles, setIsLoadingArticles ] = useState(false)
     
     const topicQuery = searchParams.get('topic')
     const sortByQuery = searchParams.get('sort_by')
 
     useEffect(() => {
+        setIsLoadingTopicOptions(true)
         axios.get('https://nc-news-xrc9.onrender.com/api/topics')
         .then(({ data }) => {
+            setIsLoadingTopicOptions(false)
             setTopicsHome(data)
         })
         .catch((err) => {
+            setIsLoadingTopicOptions(false)
             console.log(err)
         })
     }, [])
 
     useEffect(() => {
         if (topicQuery) {
+            setIsLoadingArticles(true)
             setSelectedTopicHome(topicQuery)
             axios.get(`https://nc-news-xrc9.onrender.com/api/articles`, {
                 params: {
@@ -33,6 +39,7 @@ export default function UserArticleTopics({ setUserArticles, loggedUser }) {
                 }
             })
             .then(({ data }) => {
+                setIsLoadingArticles(false)
                 const { articles } = data
                 const loggedUserArticles = articles.filter((article) => {
                     if (article.author === loggedUser.username) {
@@ -114,6 +121,7 @@ export default function UserArticleTopics({ setUserArticles, loggedUser }) {
                 setUserArticles(loggedUserArticles)
             })
             .catch((err) => {
+                setIsLoadingArticles(false)
                 console.log(err.response.data.msg)
             })
         }
@@ -174,11 +182,12 @@ export default function UserArticleTopics({ setUserArticles, loggedUser }) {
 
     return (
         <div>
-            <div className="filter-container">
+            <div className="query-container">
                 <form>
                     <ul>
                         <h3> Filter Articles </h3>
                         <h4> Topic: </h4>
+                        {isLoadingTopicOptions ? <p> Loading options... </p> : null}
                         {topicsHome.map((topic, index) => {
                             return (
                             <div key={`${topic.slug}${index}`}>
