@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import ArticlesApiRequest from "./ArticlesApiRequest"
+import ArticlesApiRequest from "./api-request/ArticlesApiRequest"
 
 export default function UserArticlesSort({ selectedTopicHome, loggedUser, setUserArticles }) {
     const [ searchParams, setSearchParams ] = useSearchParams()
@@ -183,9 +183,9 @@ export default function UserArticlesSort({ selectedTopicHome, loggedUser, setUse
     }
 
     return (
-        <div>
+        <div className="query-container">
             <form>
-            <ul>
+                <ul>
                 <h3> Sort Articles </h3>
                 <h4>  Date: </h4>
                 <input type="checkbox" name="date" id="date" checked={appliedQueryHome === 'date' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'date' ? true : false} onChange={handleChange} />
@@ -210,7 +210,7 @@ export default function UserArticlesSort({ selectedTopicHome, loggedUser, setUse
                     <label htmlFor="count-desc" > Lowest to Highest </label>
                 </div>
              
-            </ul>
+                </ul>
             </form>
         </div>
     )

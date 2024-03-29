@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import ArticlesApiRequest from "./ArticlesApiRequest"
+import ArticlesApiRequest from "./api-request/ArticlesApiRequest"
 import ArticleTopics from "./ArticleTopics"
 import ArticlesList from "./ArticlesList"
 

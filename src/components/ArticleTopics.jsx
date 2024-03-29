@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
-import { Link, useSearchParams } from 'react-router-dom'
-import ArticlesApiRequest from "./ArticlesApiRequest"
+import { useSearchParams } from 'react-router-dom'
+import ArticlesApiRequest from "./api-request/ArticlesApiRequest"
 import ArticlesSort from './ArticlesSort'
 
 export default function ArticleTopics({ setArticles }) {
     const [ searchParams, setSearchParams ] = useSearchParams()
     const [ topics, setTopics ] = useState([])
     const [ selectedTopic, setSelectedTopic ] = useState('')
+    const [ isLoading, setIsLoading ] = useState(false)
+    const [ errMsg, setErrMsg ] = useState('')
     
     const topicQuery = searchParams.get('topic')
     const sortByQuery = searchParams.get('sort_by')
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get('https://nc-news-xrc9.onrender.com/api/topics')
         .then(({ data }) => {
+            setIsLoading(false)
             setTopics(data)
         })
         .catch((err) => {
+            setIsLoading(false)
+            const { msg } = err.response.data
+            setErrMsg(msg)
             console.log(err)
         })
     }, [])
@@ -107,7 +114,9 @@ export default function ArticleTopics({ setArticles }) {
                 setArticles(articles)
             })
             .catch((err) => {
-                console.log(err.response.data.msg)
+                const { msg } = err.response.data
+                setErrMsg(msg)
+            
             })
         }
     }, [topicQuery, selectedTopic, sortByQuery])
@@ -154,10 +163,11 @@ export default function ArticleTopics({ setArticles }) {
 
     return (
         <div>
-            <div className="filter-container">
+            <div className="query-container">
                 <form>
                     <ul>
                         <h3> Filter Articles </h3>
+                        {selectedTopic ? <p> Uncheck box to select another topic </p> : null}
                         <h4> Topic: </h4>
                         {topics.map((topic, index) => {
                             return (

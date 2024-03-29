@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp, faComments } from '@fortawesome/free-solid-svg-icons'
 
 export default function ArticlesList({ articles }) {
     return (
-        <main className="articles-container">
-            <ul>
+        <div>
+            <main className="articles-container">
+                <ul> 
+                    <article>
+                        <h2> Articles </h2>
             {
                 articles.map((article) => {
                     return (
@@ -24,16 +29,18 @@ export default function ArticlesList({ articles }) {
                                 Created At: {article.created_at}
                             </div>
                             <div>
-                                Likes: {article.votes}
+                                {<FontAwesomeIcon icon={faThumbsUp} />}: {article.votes}
                             </div>
                             <div>
-                                Comments: {article.comment_count}
+                                {<FontAwesomeIcon icon={faComments} />}: {article.comment_count}
                             </div>
                         </div>
                     )
                 })
             }
-            </ul>
-        </main>
+                    </article>
+                </ul>
+            </main>
+        </div>
         )
 }

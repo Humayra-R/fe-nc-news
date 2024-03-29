@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import CommentsApiReq from "./CommentsApiReq"
+import CommentsApiReq from "./api-request/CommentsApiReq"
 import PostComment from "./PostComment"
 import CommentsList from "./CommentsList"
 
