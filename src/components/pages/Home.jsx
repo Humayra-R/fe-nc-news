@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import ArticlesApiRequest from './api-request/ArticlesApiRequest'
-import ArticlesList from "./ArticlesList"
-import UserArticleTopics from "./UserArticleTopics"
+import ArticlesApiRequest from '../api-request/ArticlesApiRequest'
+import ArticlesList from "../ArticlesList"
+import UserArticleTopics from "../UserArticleTopics"
 
 export default function Home({ loggedUser }) {
     const [ userArticles, setUserArticles ] = useState([])
