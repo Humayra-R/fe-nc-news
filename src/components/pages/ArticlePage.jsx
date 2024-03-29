@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
-import Article from './Article'
-import Comments from './Comments'
+import Article from '../Article'
+import Comments from '../Comments'
 
 export default function ArticlePage({ loggedUser }) {
     const { username } = loggedUser

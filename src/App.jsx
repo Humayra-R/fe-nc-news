@@ -2,8 +2,8 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Home from './components/pages/Home'
-import ArticlesPage from './components/ArticlesPage'
-import ArticlePage from './components/ArticlePage'
+import ArticlesPage from './components/pages/ArticlesPage'
+import ArticlePage from './components/pages/ArticlePage'
 import Footer from './components/Footer'
 
 function App() {

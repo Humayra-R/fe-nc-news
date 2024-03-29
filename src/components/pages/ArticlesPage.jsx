@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import ArticlesApiRequest from "./api-request/ArticlesApiRequest"
-import ArticleTopics from "./ArticleTopics"
-import ArticlesList from "./ArticlesList"
+import ArticlesApiRequest from "../api-request/ArticlesApiRequest"
+import ArticleTopics from "../ArticleTopics"
+import ArticlesList from "../ArticlesList"
 
 export default function ArticlesPage() {
     const [ articles, setArticles ] = useState([])
