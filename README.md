@@ -1,8 +1,8 @@
-**Coders Correspondence**
+**The Coders Correspondence**
 
 Hosted Version (Netlify): https://coders-correspondence.netlify.app/
 
-Coders Correspondence is a social news collection website created with mock content gathered from NC News API. Its users are able to like or dislike an article, post and delete comments and filter articles using various queries. 
+The Coders Correspondence is a social news collection website created with mock content gathered from NC News API. Its users are able to like or dislike an article, post and delete comments and filter articles using various queries. 
 
 Hosted API (Render) https://nc-news-xrc9.onrender.com/api
 Repository: https://github.com/Humayra-R/Northcoders-News-API
