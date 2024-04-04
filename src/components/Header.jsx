@@ -7,7 +7,7 @@ export default function Header({ userName }) {
         <div className="container">
             <h1> The Coders Correspondence </h1>  
             <NavBar /> 
-            <button className='user-button'> {<FontAwesomeIcon icon={faUserLarge} fixedWidth={true} />} </button>
+            <button> {<FontAwesomeIcon icon={faUserLarge} />} </button>
         </div>
     )
 }

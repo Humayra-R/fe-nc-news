@@ -32,7 +32,7 @@ export default function ArticlesPage() {
     }
     
     return (
-        <div>
+        <div className="home-container">
             <ArticleTopics setArticles={setArticles} />
             <ArticlesList articles={articles} />
         </div>

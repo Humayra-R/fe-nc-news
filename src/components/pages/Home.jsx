@@ -26,10 +26,10 @@ export default function Home({ loggedUser }) {
     }, [loggedUser])
 
     return (
-        <>
+        <div className="home-container">
         <UserArticleTopics userArticles={userArticles} setUserArticles={setUserArticles} loggedUser={loggedUser} />
         {isLoading ? <p> Loading articles... </p> : null}
         <ArticlesList articles={userArticles} />
-        </>
+        </div>
     )
 }

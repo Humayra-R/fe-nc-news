@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from 'axios'
 import CommentsApiReq from "./api-request/CommentsApiReq"
 
@@ -19,7 +19,6 @@ export default function CommentsList({ comments, username, article_id, setCommen
             .then((data) => {
                 setIsDeleted(true)
                 const { comments } = data
-                
                 setComments(comments)
             })
             .catch((err) => {
@@ -37,7 +36,7 @@ export default function CommentsList({ comments, username, article_id, setCommen
 
     return (
         <div>
-        <h2> Comments: </h2>
+        <h2> {} Comments </h2>
         <ul>
         {
             comments.map((comment) => {

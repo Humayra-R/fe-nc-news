@@ -52,9 +52,14 @@ export default function PostComment({ article_id, username, addComment, removeCo
     return (
         <section>
             <form onSubmit={handleSubmit} className="comment-form">
-                <label htmlFor="write-comment"> Leave a comment: </label>
-                <input value={input} onChange={handleChange} id="write-comment" placeholder="type comment"/>
-                <button aria-label="button for publishing comment"> post </button>
+                <div>
+                  <label htmlFor="write-comment"> Leave a comment </label>  
+                </div>
+                <div>
+                    <textarea value={input} onChange={handleChange} id="write-comment" placeholder="type comment"/>
+                    <button aria-label="button for publishing comment"> Post </button>
+                </div>
+               
             </form>
             {isPosting ? <p> posting... </p> : null}
             {errMsg ? <p> ERROR: {errMsg} </p> : null}

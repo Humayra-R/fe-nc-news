@@ -10,18 +10,23 @@ export default function ArticleList({ article }) {
     }, [])
 
     const handleClick = (num) => {
-        axios.patch(`https://nc-news-xrc9.onrender.com/api/articles/${article.article_id}`, { inc_votes: num })
-        .then(({ data }) => {
-            const [ updatedArticle ] = data.updatedArticle
-            setVotes(updatedArticle.votes)
+        setVotes((currVotes) => {
+           return currVotes + num
         })
+        axios.patch(`https://nc-news-xrc9.onrender.com/api/articles/${article.article_id}`, { inc_votes: num })
         .catch((err) => {
+            setVotes((currVotes) => {
+                return currVotes - num
+             })
             const { msg } = err.response.data
             setErrMsg(msg)
         })
     }
         
     if (errMsg) return <p> ERROR: {errMsg} </p>
+
+    const formatDate = new Date(article.created_at) 
+    const date = formatDate.toLocaleDateString()
 
     return (
         <main>
@@ -30,7 +35,7 @@ export default function ArticleList({ article }) {
             <p> Author: {article.author} </p>
             <p> Topic: {article.topic} </p>
             <p> {article.body} </p>
-            <Date> {article.created_at} </Date>
+            <p> {date} </p>
             <p> Article ID: {article.article_id} </p>
             <button onClick={() => handleClick(-1)} aria-label='button for subtracting a vote from the article'> - </button> 
             Votes: { votes }

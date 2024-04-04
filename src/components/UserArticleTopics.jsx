@@ -181,24 +181,23 @@ export default function UserArticleTopics({ setUserArticles, loggedUser }) {
     }
 
     return (
-        <div>
-            <div className="query-container">
-                <form>
-                    <ul>
-                        <h3> Filter Articles </h3>
-                        <h4> Topic: </h4>
-                        {isLoadingTopicOptions ? <p> Loading options... </p> : null}
-                        {topicsHome.map((topic, index) => {
-                            return (
-                            <div key={`${topic.slug}${index}`}>
-                            <input type="checkbox"  name={topic.slug} onChange={handleChange} id={`${topic.slug}${index}`} checked={selectedTopicHome === topic.slug ? true : false} disabled={selectedTopicHome && selectedTopicHome !== topic.slug ? true : false} />
-                            <label htmlFor="filter-topic"> {topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)} </label> 
-                            </div>
+        <div className="topic-container spacing" >
+            <form>
+                <ul className="box-spacing" >
+                    <h3 className="header-spacing" > Filter Articles </h3>
+                    <h4 className="header-spacing" > Topic: </h4>
+                    {isLoadingTopicOptions ? <p> Loading options... </p> : null}
+                    {selectedTopicHome ? <p className="display-text" > Uncheck box to select another option </p>: null}
+                    {topicsHome.map((topic, index) => {
+                    return (
+                        <li key={`${topic.slug}${index}`} className="text-spacing" >
+                        <input type="checkbox"  name={topic.slug} onChange={handleChange} id={`${topic.slug}${index}`} checked={selectedTopicHome === topic.slug ? true : false} disabled={selectedTopicHome && selectedTopicHome !== topic.slug ? true : false} />
+                        <label htmlFor="filter-topic"> {topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)} </label> 
+                        </li>
                             )
-                        })}
+                            })}
                     </ul>
                 </form>
-            </div>
             <UserArticlesSort selectedTopicHome={selectedTopicHome} setSelectedTopicHome={setSelectedTopicHome} setUserArticles={setUserArticles} loggedUser={loggedUser} />
         </div>
     )

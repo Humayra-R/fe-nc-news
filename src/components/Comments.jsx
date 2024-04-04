@@ -40,7 +40,7 @@ export default function Comments({ article_id, username }) {
         })
     }, [article_id])
 
-    if (isLoading) return <p className="intermediary"> ...loading comments </p>
+    if (isLoading) return <p className="intermediary"> Loading comments... </p>
 
     if (errMsg) return <p className="intermediary"> ERROR: {errMsg} </p>
 
