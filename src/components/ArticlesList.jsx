@@ -31,7 +31,7 @@ export default function ArticlesList({ articles }) {
                             <h2> {article.title} </h2> 
                         </div>
                             <div>
-                                <FontAwesomeIcon icon={faAt} size='xs' /> {article.author.charAt(0).toUpperCase() + article.author.slice(1)}
+                                <FontAwesomeIcon icon={faAt} size='xs' />{article.author.charAt(0).toUpperCase() + article.author.slice(1)}
                             </div>
                             <div className="article-bottom" >
                                 <div className="like-and-comment">

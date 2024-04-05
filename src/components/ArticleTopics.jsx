@@ -166,7 +166,7 @@ export default function ArticleTopics({ setArticles }) {
                 <form>
                     <ul className="box-spacing">
                         <h3 className="header-spacing" > Filter Articles </h3>
-                        {selectedTopic ? <p> Uncheck box to select another topic </p> : null}
+                        {selectedTopic ? <p className="display-text"> Uncheck box to select another topic </p> : null}
                         <h4 className="header-spacing"  > Topic: </h4>
                         {topics.map((topic, index) => {
                             return (

@@ -10,15 +10,17 @@ function App() {
   const loggedUser = { username: 'jessjelly'}
 
   return (
-    <div>
+    <>
       <Header userName={loggedUser.username} />
         <Routes>
         <Route path='/' element={<Home loggedUser={ loggedUser }/>} />
         <Route path='/articles' element={<ArticlesPage />} />
         <Route path='/article/:article_id' element={<ArticlePage loggedUser={ loggedUser } />} />
       </Routes>
+    <div className='app' >
       <Footer />
     </div>
+    </>
   )
 }
 

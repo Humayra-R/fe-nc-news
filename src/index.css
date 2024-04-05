@@ -24,6 +24,23 @@ body {
   background-color: white;
 }
 
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background-color: whitesmoke;
+}
+
 .article-container {
   width: 75%;
   margin: 2rem auto;
@@ -76,10 +93,6 @@ body {
   padding: 1rem;
   background-color: whitesmoke;
   border-radius: 5px;
-}
-
-.read-article a:hover {
-  text-decoration: underline;
 }
 
 @media screen and (min-width: 850px) {
@@ -165,13 +178,107 @@ li, ul {
   list-style: none;
 }
 
-.container button {
-border: 0;
+.user-info {
 background-color: inherit;
 padding: 1rem;
 padding-right: 3rem;
+display: flex;
+}
+
+.user-hover {
+  padding-right: 0.25rem;
 }
 
 .article-page {
   margin: 2rem;
+}
+
+.article-page-container {
+  width: 85%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.article-page-container img {
+  height: 40rem;
+  object-fit: cover
+}
+
+.article-page-container h2 {
+  margin-bottom: 0.5rem;
+}
+
+.title-topic {
+  display: flex;
+  justify-content: space-between;
+}
+
+.body {
+  font-size: 2rem;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.comment-form, .comments-list {
+  width: 85%;
+  margin: 2rem auto;
+}
+
+.form-style {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  display: block;
+}
+
+.comment-header {
+  margin-bottom: 1rem;
+}
+
+.post-button, .delete-button {
+  text-align: end;
+}
+.post-button button, .delete-button button {
+  border: 0;
+  background-color: whitesmoke;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  margin-top: 1rem;
+  border-radius: 5px;
+}
+
+.post-button button:hover, .delete-button button:hover, .read-article a:hover {
+  transform: translate3D(0,-1px,0) scale(1.03);
+  background-color: black;
+  color: white;
+}
+
+.comment-card {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid lightgrey;
+  border-radius: 15px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.comment-top  {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comm-body {
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }

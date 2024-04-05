@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from "axios"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp, faThumbsDown, faComments, faCalendar, faLightbulb, faAt } from '@fortawesome/free-solid-svg-icons'
 
 export default function ArticleList({ article }) {
     const [ votes, setVotes ] = useState(0)
@@ -29,18 +31,25 @@ export default function ArticleList({ article }) {
     const date = formatDate.toLocaleDateString()
 
     return (
-        <main>
+        <main className="article-page-container" >
             <img src={article.article_img_url} alt="article image"/>
-            <h2> {article.title} </h2>
-            <p> Author: {article.author} </p>
-            <p> Topic: {article.topic} </p>
-            <p> {article.body} </p>
-            <p> {date} </p>
-            <p> Article ID: {article.article_id} </p>
-            <button onClick={() => handleClick(-1)} aria-label='button for subtracting a vote from the article'> - </button> 
-            Votes: { votes }
-            <button onClick={() => handleClick(1)} aria-label='button for adding a vote to the article'> + </button>
-            <p> Comment count: {article.comment_count} </p>
+            <p> <FontAwesomeIcon icon={faCalendar} /> {date} </p>
+            <div className='title-topic'>
+               <h2> {article.title} </h2>
+               <p> <FontAwesomeIcon icon={faLightbulb} /> {article.topic} </p> 
+            </div>
+            <div> 
+                <FontAwesomeIcon icon={faAt} />{article.author} 
+            </div>
+            <div className='body'>
+                <p> {article.body} </p> 
+            </div>
+            <div className='bottom'>
+                <p> { votes } </p>
+                <button onClick={() => handleClick(1)} aria-label='button for subtracting a vote from the article'> <FontAwesomeIcon icon={faThumbsUp} size='lg'/> </button> 
+                <button onClick={() => handleClick(-1)} aria-label='button for adding a vote to the article'> <FontAwesomeIcon icon={faThumbsDown} size='lg'/> </button> 
+            </div> 
+           
         </main>
     )
 }

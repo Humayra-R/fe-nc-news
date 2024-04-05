@@ -8,8 +8,8 @@ export default function ArticlePage({ loggedUser }) {
 
     return (
         <div className="article-page">
-            <Article article_id={article_id} />
-            <Comments article_id={article_id} username={username} />
+            <Article article_id={article_id} username={username} />
+            {/* <Comments article_id={article_id} username={username} /> */}
         </div>
     )
 }
