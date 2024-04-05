@@ -162,16 +162,15 @@ export default function ArticleTopics({ setArticles }) {
     }
 
     return (
-        <div>
-            <div className="query-container">
+            <div className="topic-container spacing">
                 <form>
-                    <ul>
-                        <h3> Filter Articles </h3>
-                        {selectedTopic ? <p> Uncheck box to select another topic </p> : null}
-                        <h4> Topic: </h4>
+                    <ul className="box-spacing">
+                        <h3 className="header-spacing" > Filter Articles </h3>
+                        {selectedTopic ? <p className="display-text"> Uncheck box to select another topic </p> : null}
+                        <h4 className="header-spacing"  > Topic: </h4>
                         {topics.map((topic, index) => {
                             return (
-                            <div key={`${topic.slug}${index}`}>
+                            <div key={`${topic.slug}${index}`} className="text-spacing">
                             <input type="checkbox"  name={topic.slug} onChange={handleChange} id={`${topic.slug}${index}`} checked={selectedTopic === topic.slug ? true : false} disabled={selectedTopic && selectedTopic !== topic.slug ? true : false} />
                             <label htmlFor="filter-topic"> {topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)} </label> 
                             </div>
@@ -179,7 +178,6 @@ export default function ArticleTopics({ setArticles }) {
                         })}
                     </ul>
                 </form>
-            </div>
             <ArticlesSort selectedTopic={selectedTopic} setSelectedTopic={setSelectedTopic} setArticles={setArticles}  />
         </div>
     )

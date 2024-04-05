@@ -183,29 +183,34 @@ export default function UserArticlesSort({ selectedTopicHome, loggedUser, setUse
     }
 
     return (
-        <div className="query-container">
+        <div>
             <form>
-                <ul>
-                <h3> Sort Articles </h3>
-                <h4>  Date: </h4>
-                <input type="checkbox" name="date" id="date" checked={appliedQueryHome === 'date' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'date' ? true : false} onChange={handleChange} />
-                <label htmlFor="date"> Oldest to Newest </label>
-                <h4> Likes: </h4>
+                <ul >
+                <h3 className="header-spacing" > Sort Articles </h3>
+                {appliedQueryHome && appliedQueryHome === 'date' ? <p className="display-text" > Uncheck box to display newest to oldest or to select another option </p> : null}
+                {appliedQueryHome && appliedQueryHome !== 'date' ? <p className="display-text" > Uncheck box to select another option </p> : null}
+                <h4 className="header-spacing" >  Date: </h4>
                 <div>
+                <input type="checkbox" name="date" id="date" checked={appliedQueryHome === 'date' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'date' ? true : false} onChange={handleChange} />
+                <label htmlFor="date" > Oldest to Newest </label>
+                </div>
+                
+                <h4 className="header-spacing" > Likes: </h4>
+                <div className="inner-text">
                     <input type="checkbox" name="votes-asc" id="votes-asc"  checked={appliedQueryHome === 'votes-asc' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'votes-asc' ? true : false} onChange={handleChange} />
                     <label htmlFor="votes-asc" > Highest to Lowest </label>
                 </div>
-                <div>
+                <div className="inner-text">
                     <input type="checkbox" name="votes-desc" id="votes-desc" checked={appliedQueryHome === 'votes-desc' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'votes-desc' ? true : false} onChange={handleChange} />
                     <label htmlFor="votes-desc" > Lowest to Highest </label>
                 </div>
-                <h4> Comments: </h4>
-                <div>
+                <h4 className="header-spacing" > Comments: </h4>
+                <div className="inner-text" >
                     <input type="checkbox" name="count-asc" id="count-asc"  checked={appliedQueryHome === 'count-asc' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'count-asc' ? true : false} onChange={handleChange} />
                     <label htmlFor="count-asc" > Highest to Lowest </label>
                 </div>
                 
-                <div>
+                <div className="inner-text" >
                     <input type="checkbox" name="count-desc" id="count-desc" checked={appliedQueryHome === 'count-desc' ? true : false} disabled={appliedQueryHome && appliedQueryHome !== 'count-desc' ? true : false} onChange={handleChange} />
                     <label htmlFor="count-desc" > Lowest to Highest </label>
                 </div>

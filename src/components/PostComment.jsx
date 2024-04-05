@@ -1,8 +1,10 @@
 import { useState } from "react"
 import axios from 'axios'
 import CommentsApiReq from "./api-request/CommentsApiReq"
+import TextField from '@mui/material/TextField'
 
-export default function PostComment({ article_id, username, addComment, removeComment, setComments }) {
+
+export default function PostComment({ article_id, username, addComment, removeComment, setComments, commentCount }) {
     const [ input, setInput ] = useState('')
     const [ isPosting, setIsPosting ] = useState(false)
     const [ errMsg, setErrMsg ] = useState(null)
@@ -50,11 +52,19 @@ export default function PostComment({ article_id, username, addComment, removeCo
     }
 
     return (
-        <section>
-            <form onSubmit={handleSubmit} className="comment-form">
-                <label htmlFor="write-comment"> Leave a comment: </label>
-                <input value={input} onChange={handleChange} id="write-comment" placeholder="type comment"/>
-                <button aria-label="button for publishing comment"> post </button>
+        <section className="comment-form">
+            <form onSubmit={handleSubmit} >
+                <div>
+                  <label htmlFor="write-comment"> 
+                  <h2 className="comment-header" > {commentCount} Comments  </h2> 
+                  </label>  
+                </div>
+                <div className="text-field">
+                    <TextField fullWidth value={input} onChange={handleChange} id="write-comment" placeholder="type comment" className="form-style" />
+                </div>
+                <div className="post-button">
+                    <button aria-label="button for publishing comment"> Post </button>
+                </div>
             </form>
             {isPosting ? <p> posting... </p> : null}
             {errMsg ? <p> ERROR: {errMsg} </p> : null}

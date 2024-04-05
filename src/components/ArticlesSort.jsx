@@ -147,35 +147,38 @@ export default function ArticlesSort({ selectedTopic, setArticles }) {
     }
 
     return (
-        <div className="query-container">
+        <div>
             <form>
-            <ul>
-                <h3> Sort Articles </h3>
-                {appliedQuery ? <p> Uncheck box to select another sorting option </p> : null }
-                <h4>  Date: </h4>
+                <ul>
+                <h3 className="header-spacing" > Sort Articles </h3>
+                {appliedQuery && appliedQuery === 'date'? <p className="display-text" > Uncheck box to display newest to oldest or to select another option </p> : null}
+                {appliedQuery && appliedQuery !== 'date'? <p className="display-text" > Uncheck box to select another sorting option </p> : null }
+                <h4 className="header-spacing" >  Date: </h4>
+                <div>
                 <input type="checkbox" name="date" id="date" checked={appliedQuery === 'date' ? true : false} disabled={appliedQuery && appliedQuery !== 'date' ? true : false} onChange={handleChange} />
                 <label htmlFor="date"> Oldest to Newest </label>
-                <h4> Likes: </h4>
-                <div>
+                </div>
+                <h4 className="header-spacing" > Likes: </h4>
+                <div className="inner-text" >
                     <input type="checkbox" name="votes-asc" id="votes-asc"  checked={appliedQuery === 'votes-asc' ? true : false} disabled={appliedQuery && appliedQuery !== 'votes-asc' ? true : false} onChange={handleChange} />
                     <label htmlFor="votes-asc" > Highest to Lowest </label>
                 </div>
-                <div>
+                <div className="inner-text" >
                     <input type="checkbox" name="votes-desc" id="votes-desc" checked={appliedQuery === 'votes-desc' ? true : false} disabled={appliedQuery && appliedQuery !== 'votes-desc' ? true : false} onChange={handleChange} />
                     <label htmlFor="votes-desc" > Lowest to Highest </label>
                 </div>
-                <h4> Comments: </h4>
-                <div>
+                <h4 className="header-spacing"> Comments: </h4>
+                <div className="inner-text" >
                     <input type="checkbox" name="count-asc" id="count-asc"  checked={appliedQuery === 'count-asc' ? true : false} disabled={appliedQuery && appliedQuery !== 'count-asc' ? true : false} onChange={handleChange} />
                     <label htmlFor="count-asc" > Highest to Lowest </label>
                 </div>
                 
-                <div>
+                <div className="inner-text" >
                     <input type="checkbox" name="count-desc" id="count-desc" checked={appliedQuery === 'count-desc' ? true : false} disabled={appliedQuery && appliedQuery !== 'count-desc' ? true : false} onChange={handleChange} />
                     <label htmlFor="count-desc" > Lowest to Highest </label>
                 </div>
              
-            </ul>
+                </ul>
             </form>
         </div>
     )
