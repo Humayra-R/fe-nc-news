@@ -1,4 +1,4 @@
-Website is temporarily non-functional due to termination of hosting service. 
+Website is temporarily non-functional due to termination of database hosting service. 
 
 **The Coders Correspondence**
 
