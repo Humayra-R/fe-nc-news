@@ -1,3 +1,5 @@
+Website is temporarily non-functional due to termination of hosting service. 
+
 **The Coders Correspondence**
 
 Hosted Version (Netlify): https://coders-correspondence.netlify.app/
